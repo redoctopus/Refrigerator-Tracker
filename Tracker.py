@@ -22,15 +22,24 @@ def main():
     prodb = ProduceFunctionsClass.produceDatabaseFuncts()
     
     while (cmd != "quit" and cmd != "q"):
+        # Help command
         if (cmd == "help" or cmd == "h"):
             print ("- fridge / f : Prints out what's in the fridge"
                   " in order of date of expiry.")
             print ("- lookup / l : Prompts for a lookup of an item in the"
                   " general produce database.")
-        
+
+        # Lookup command: Find a specific food in general database
         elif (cmd == "lookup" or cmd == "l"):
             prodb.produceExists(raw_input(" ?=> "))
             
+        elif (cmd == "new produce" or cmd == "np"):
+            name = raw_input("Name of produce: ")
+            expiry = raw_input("# Days before expiring: ")
+            # check if int?
+            comments = raw_input("Additional comments: ")
+            prodb.newProduce(name, int(expiry), comments)
+        
         elif (cmd == "fridge" or cmd == "f"):
             pass
         
