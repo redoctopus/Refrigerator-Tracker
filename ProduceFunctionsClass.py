@@ -22,47 +22,56 @@ class produceDatabaseFuncts(object):
     # Checks if the given produce exists in produce_info
     # Returns: Boolean
 
-    def produceExists(name):
-        pass
+    def produceExists(self, name):
+        print name
+        #self.cursor.execute("")
+        #self.conn.commit()
+        return self.cursor
 
     #=====<newProduce>=====
     # Inserts new kinds of produce into produce_info
     # Returns: None
 
-    def newProduce(name, expiry, comments):
+    def newProduce(self, name, expiry, comments):
         pass
 
     #=====<inFridge>=====
     # Checks if the given produce is in the fridge
     # Returns: Boolean
 
-    def inFridge(name):
+    def inFridge(self, name):
         pass
 
     #=====<addToFridge>=====
     # Adds some produce into the fridge
     # Returns: None
 
-    def addToFridge(name):
+    def addToFridge(self, name):
         pass
 
     #=====<removeFromFridge>=====
     # Removes some produce from the fridge
     # Returns: None
 
-    def removeFromFridge(name):
+    def removeFromFridge(self, name):
         pass
 
     #=====<allFridgeItems>=====
     # Retrieves all items that are in the fridge
     # Returns: Array with: String (name) -> Date
 
-    def allFridgeItems():
+    def allFridgeItems(self):
         pass
 
     #=====<quickestSpoil>=====
     # Retrieves the first (n) produce items in the fridge based on spoil date
     # Returns: Array
 
-    def quickestSpoil(n):
+    def quickestSpoil(self, n):
         pass
+
+    #=====<Deletion>=====
+    def __del__(self):
+        self.conn.close()
+
+# End of file
