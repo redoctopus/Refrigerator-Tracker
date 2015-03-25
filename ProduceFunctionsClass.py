@@ -3,7 +3,7 @@
   | Produce Functions Class |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 03/19/15 |
+  | Last modified: 03/25/15 |
   +========================='''
 
 ''' This file contains the functions that interact with the database.
@@ -33,7 +33,14 @@ class produceDatabaseFuncts(object):
     # Returns: None
 
     def newProduce(self, name, expiry, comments):
-        pass
+        # probably want to make some checks before arbitrarily inserting
+        # into the database.
+        # Also, the connection commit stuff should be handled in Tracker.py.
+        # Edit this later. Right now it just works and I'm happy about that :)
+        self.cursor.execute("INSERT INTO produce_info VALUES (?,?,?)", (name, expiry, comments))
+        self.conn.commit()
+        self.cursor.close()
+        self.conn.close()
 
     #=====<inFridge>=====
     # Checks if the given produce is in the fridge
