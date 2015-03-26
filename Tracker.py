@@ -3,7 +3,7 @@
   |         Tracker         |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 03/25/15 |
+  | Last modified: 03/26/15 |
   +========================='''
 
 import ProduceFunctionsClass
@@ -28,6 +28,8 @@ def main():
         if (cmd == "help" or cmd == "h"):
             print ("- add / a : Prompts for an item to add to the fridge."
                   " if it's not already in the db, asks for additional info.")
+            print ("- edit produce / ep : Prompts for some produce to edit"
+                  " its information in produce_info")
             print ("- fridge / f : Prints out what's in the fridge"
                   " in order of date of expiry.")
             print ("- in fridge / if: Prompts for a lookup of an item in"
@@ -69,7 +71,12 @@ def main():
             
             prodb.newProduce(name, expiry, comments)
         
-        # <PROBABLY WANT A PRODUCE EDIT FUNCTION FOR produce_info>
+        # Edit Produce command: Changes the info for some produce
+        elif (cmd == "edit produce" or cmd == "ep"):
+            name = raw_input(" ?=> ")
+            if (not prodb.produceExists(name)):
+                cmd = raw_input('==> ')
+                continue
 
         # In Fridge command: Checks if a given food is in the fridge
         elif (cmd == "in fridge" or cmd == "if"):

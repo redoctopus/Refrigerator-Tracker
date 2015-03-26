@@ -3,7 +3,7 @@
   | Produce Functions Class |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 03/25/15 |
+  | Last modified: 03/26/15 |
   +========================='''
 
 ''' This file contains the functions that interact with the database.
@@ -20,7 +20,7 @@ class produceDatabaseFuncts(object):
     
     #=====<produceExists>=====
     # Checks if the given produce exists in produce_info
-    # Returns: None, but prints out the data if it exists.
+    # Returns: Boolean, and prints out the data if it exists.
 
     def produceExists(self, name):
         self.cursor.execute("SELECT * FROM produce_info WHERE name=(?)",
@@ -32,7 +32,11 @@ class produceDatabaseFuncts(object):
             print "------------"
             print "Typically expires in", result[1], "days"
             print "Other comments:\n", result[2], "\n============\n"
-        else: print "\n",name,"doesn't exist in the database.\n"
+            return True
+
+        else:
+            print "\n",name,"doesn't exist in the database.\n"
+            return False
 
     #=====<newProduce>=====
     # Inserts new kinds of produce into produce_info
