@@ -3,10 +3,12 @@
   |         Tracker         |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 03/21/15 |
+  | Last modified: 03/25/15 |
   +========================='''
 
 import ProduceFunctionsClass
+
+#Make things lowercase!
 
 def main():
     print "+======================+"
@@ -67,6 +69,8 @@ def main():
             
             prodb.newProduce(name, expiry, comments)
         
+        # <PROBABLY WANT A PRODUCE EDIT FUNCTION FOR produce_info>
+
         # In Fridge command: Checks if a given food is in the fridge
         elif (cmd == "in fridge" or cmd == "if"):
             name = raw_input(" ?=> ")
@@ -91,5 +95,7 @@ def main():
             pass
         
         cmd = raw_input('==> ')
+    
+    del prodb
 
 if __name__ == '__main__' : main()

@@ -20,13 +20,19 @@ class produceDatabaseFuncts(object):
     
     #=====<produceExists>=====
     # Checks if the given produce exists in produce_info
-    # Returns: Boolean
+    # Returns: None, but prints out the data if it exists.
 
     def produceExists(self, name):
-        print name
-        #self.cursor.execute("")
-        #self.conn.commit()
-        return self.cursor
+        self.cursor.execute("SELECT * FROM produce_info WHERE name=(?)",
+                (name,)) #These tuples... that one comma...
+        result = self.cursor.fetchone()
+        if (not(result==None)):
+            print "\n============"
+            print result[0]
+            print "------------"
+            print "Typically expires in", result[1], "days"
+            print "Other comments:\n", result[2], "\n============\n"
+        else: print "\n",name,"doesn't exist in the database.\n"
 
     #=====<newProduce>=====
     # Inserts new kinds of produce into produce_info
@@ -35,12 +41,9 @@ class produceDatabaseFuncts(object):
     def newProduce(self, name, expiry, comments):
         # probably want to make some checks before arbitrarily inserting
         # into the database.
-        # Also, the connection commit stuff should be handled in Tracker.py.
-        # Edit this later. Right now it just works and I'm happy about that :)
-        self.cursor.execute("INSERT INTO produce_info VALUES (?,?,?)", (name, expiry, comments))
+        self.cursor.execute("INSERT INTO produce_info VALUES (?,?,?)",
+                (name, expiry, comments))
         self.conn.commit()
-        self.cursor.close()
-        self.conn.close()
 
     #=====<inFridge>=====
     # Checks if the given produce is in the fridge
@@ -79,6 +82,7 @@ class produceDatabaseFuncts(object):
 
     #=====<Deletion>=====
     def __del__(self):
+        self.cursor.close()
         self.conn.close()
 
 # End of file
