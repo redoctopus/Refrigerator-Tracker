@@ -76,6 +76,7 @@ def main():
             name = raw_input(" ?=> ")
             if (not prodb.produceExists(name)):
                 cmd = raw_input('==> ')
+                print "no"
                 continue
 
         # In Fridge command: Checks if a given food is in the fridge
