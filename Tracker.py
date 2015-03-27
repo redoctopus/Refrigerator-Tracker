@@ -70,14 +70,25 @@ def main():
                 continue
             
             prodb.newProduce(name, expiry, comments)
+            print "Success! Inserted", name, "into the database."
         
         # Edit Produce command: Changes the info for some produce
         elif (cmd == "edit produce" or cmd == "ep"):
             name = raw_input(" ?=> ")
             if (not prodb.produceExists(name)):
-                cmd = raw_input('==> ')
-                print "no"
                 continue
+            print "Enter 1 to change name,"
+            print "2 to change number of days until expiry,"
+            print "and 3 to change the comment."
+            cmd = raw_input( "Enter 4 to quit.")
+            if (cmd == "4"):
+                continue
+            if (cmd == "1"): # Change name
+                pass
+            if (cmd == "2"): # Change days before expiry
+                pass
+            if (cmd == "3"): # Change comment
+                pass
 
         # In Fridge command: Checks if a given food is in the fridge
         elif (cmd == "in fridge" or cmd == "if"):

@@ -49,6 +49,27 @@ class produceDatabaseFuncts(object):
                 (name, expiry, comments))
         self.conn.commit()
 
+    #=====<changeName>=====
+    # Changes the name of the given produce into another given string
+    # Returns: None
+    
+    def changeName(self, name, name2):
+        pass
+
+    #=====<changeDays>=====
+    # Changes the days before expiry given a produce name
+    # Returns: None
+
+    def changeDays(self, name, days):
+        pass
+
+    #=====<changeComment>=====
+    # Changes the comments of some given produce
+    # Returns: None
+
+    def changeComment(self, name, comment):
+        pass
+
     #=====<inFridge>=====
     # Checks if the given produce is in the fridge
     # Returns: Boolean
