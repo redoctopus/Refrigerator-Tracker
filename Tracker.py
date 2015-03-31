@@ -83,12 +83,14 @@ def main():
             cmd = raw_input( "Enter 4 to quit.")
             if (cmd == "4"):
                 continue
-            if (cmd == "1"): # Change name
+            if (cmd == "1"): # Change name (can you do this with primary key?)
                 pass
             if (cmd == "2"): # Change days before expiry
-                pass
+                days = raw_input(" Number of days: ") # Put checks here!!!!
+                prodb.changeDays(days) # Need to give an int
             if (cmd == "3"): # Change comment
-                pass
+                comment = raw_input(" New comment: ")
+                prodb.changeComment(comment)
 
         # In Fridge command: Checks if a given food is in the fridge
         elif (cmd == "in fridge" or cmd == "if"):
@@ -98,7 +100,14 @@ def main():
         # Add command: Adds produce to the fridge. (Should prompt
             #if new produce, remember to do this!)
         elif (cmd == "add" or cmd == "a"):
-            pass
+            # Produce name
+            name = raw_input("Name of produce: ")
+            if (prodb.inFridge(name)):
+                pass #query for
+            # Otherwise, ask for data, insert into both
+            
+            print "Success! Inserted", name, "into the fridge."
+        
 
         # Remove command: Removes some item from the fridge.
             #Check if exists first.
