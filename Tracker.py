@@ -3,7 +3,7 @@
   |         Tracker         |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 03/26/15 |
+  | Last modified: 03/31/15 |
   +========================='''
 
 import ProduceFunctionsClass
@@ -80,17 +80,30 @@ def main():
             print "Enter 1 to change name,"
             print "2 to change number of days until expiry,"
             print "and 3 to change the comment."
-            cmd = raw_input( "Enter 4 to quit.")
+            cmd = raw_input( "Enter 4 to quit.\n ==> ")
+
+            #######FINISH IMPLEMENTING THESE#######
             if (cmd == "4"):
                 continue
+
             if (cmd == "1"): # Change name (can you do this with primary key?)
-                pass
+                pass###      # If not, delete and and recreate.
+
             if (cmd == "2"): # Change days before expiry
-                days = raw_input(" Number of days: ") # Put checks here!!!!
-                prodb.changeDays(days) # Need to give an int
+                while(True):
+                    try:
+                        days = raw_input(" Number of days: ")
+                        if(cmd == "cancel" or cmd == "c"): break
+                        expiry = int(cmd)
+                        break
+                    except ValueError:
+                        print "Not an int; \"cancel\" to cancel"
+                        continue
+                prodb.changeDays(name, days)
+
             if (cmd == "3"): # Change comment
                 comment = raw_input(" New comment: ")
-                prodb.changeComment(comment)
+                prodb.changeComment(name, comment)
 
         # In Fridge command: Checks if a given food is in the fridge
         elif (cmd == "in fridge" or cmd == "if"):

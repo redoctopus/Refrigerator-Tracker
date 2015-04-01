@@ -61,7 +61,7 @@ class produceDatabaseFuncts(object):
     # Returns: None
 
     def changeDays(self, name, days):
-        pass
+        print name, days
 
     #=====<changeComment>=====
     # Changes the comments of some given produce
