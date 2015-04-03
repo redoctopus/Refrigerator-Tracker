@@ -3,7 +3,7 @@
   |         Tracker         |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 03/31/15 |
+  | Last modified: 04/02/15 |
   +========================='''
 
 import ProduceFunctionsClass
@@ -41,6 +41,8 @@ def main():
             print ("- new produce / np : Prompts for information for a new"
                   " piece of produce")
             print ("- remove / r : Prompts for an item to remove from fridge.")
+            print ("- remove produce / rp : Prompts for some produce to remove"
+                  " from the information database.")
             print ("- quit / q : Quit.")
 
         # Lookup command: Find a specific food in general database
@@ -105,6 +107,11 @@ def main():
                 comment = raw_input(" New comment: ")
                 prodb.changeComment(name, comment)
 
+        # Remove Produce command : Deletes the produce from the info db
+        elif (cmd == "remove produce" or cmd == "rp"):
+            name = raw_input(" ?=> ")
+            prodb.removeProduce(name)
+
         # In Fridge command: Checks if a given food is in the fridge
         elif (cmd == "in fridge" or cmd == "if"):
             name = raw_input(" ?=> ")
@@ -116,7 +123,7 @@ def main():
             # Produce name
             name = raw_input("Name of produce: ")
             if (prodb.inFridge(name)):
-                pass #query for
+                pass #query for##########
             # Otherwise, ask for data, insert into both
             
             print "Success! Inserted", name, "into the fridge."

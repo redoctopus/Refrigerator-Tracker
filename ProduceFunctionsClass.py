@@ -3,7 +3,7 @@
   | Produce Functions Class |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 03/26/15 |
+  | Last modified: 04/02/15 |
   +========================='''
 
 ''' This file contains the functions that interact with the database.
@@ -70,12 +70,31 @@ class produceDatabaseFuncts(object):
     def changeComment(self, name, comment):
         pass
 
+    #=====<removeProduce>=====
+    # Removes the produce and its information from the info database
+    # Returns: None
+
+    def removeProduce(self, name):
+        if (self.produceExists(name)):
+            print "Are you sure you want to delete", name, "?"
+            confirm = raw_input(" ?=> ")
+            if (confirm == "yes" or confirm == "y"):
+                pass #####QUERY
+
     #=====<inFridge>=====
     # Checks if the given produce is in the fridge
     # Returns: Boolean
 
     def inFridge(self, name):
-        pass
+        self.cursor.execute("SELECT * FROM fridge WHERE name=(?)",
+                (name,))
+        result = self.cursor.fetchone()
+        if (not(result==None)): ######Probably want more here
+            return True
+
+        else:
+            print "\n",name,"doesn't exist in the fridge.\n"
+            return False
 
     #=====<addToFridge>=====
     # Adds some produce into the fridge
