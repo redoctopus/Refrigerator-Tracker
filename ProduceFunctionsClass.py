@@ -3,7 +3,7 @@
   | Produce Functions Class |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 04/02/15 |
+  | Last modified: 04/08/15 |
   +========================='''
 
 ''' This file contains the functions that interact with the database.
@@ -79,7 +79,9 @@ class produceDatabaseFuncts(object):
             print "Are you sure you want to delete", name, "?"
             confirm = raw_input(" ?=> ")
             if (confirm == "yes" or confirm == "y"):
-                pass #####QUERY
+                self.cursor.execute("DELETE FROM produce_info WHERE name=(?)",
+                        (name,))
+                self.conn.commit()
 
     #=====<inFridge>=====
     # Checks if the given produce is in the fridge
