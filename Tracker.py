@@ -3,7 +3,7 @@
   |         Tracker         |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 04/02/15 |
+  | Last modified: 04/08/15 |
   +========================='''
 
 import ProduceFunctionsClass
@@ -53,6 +53,12 @@ def main():
         elif (cmd == "new produce" or cmd == "np"):
             # Produce name
             name = raw_input("Name of produce: ")
+            
+            print "Checking if this already exists..."
+            if(prodb.produceExists(name)):
+                cmd = raw_input("Are you sure you want to replace? ")
+                if(cmd !="yes" and cmd != "y"): continue
+
             # Attempt to get days before expiry
             while (True): # This feels a bit clunky. Possibly refactor?
                 try:
@@ -88,8 +94,8 @@ def main():
             if (cmd == "4"):
                 continue
 
-            if (cmd == "1"): # Change name (can you do this with primary key?)
-                pass###      # If not, delete and and recreate.
+            if (cmd == "1"):
+                pass###      # Delete and and recreate.########
 
             if (cmd == "2"): # Change days before expiry
                 while(True):

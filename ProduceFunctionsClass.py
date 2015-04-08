@@ -45,7 +45,7 @@ class produceDatabaseFuncts(object):
     def newProduce(self, name, expiry, comments):
         # probably want to make some checks before arbitrarily inserting
         # into the database.
-        self.cursor.execute("INSERT INTO produce_info VALUES (?,?,?)",
+        self.cursor.execute("INSERT OR REPLACE INTO produce_info VALUES (?,?,?)",
                 (name, expiry, comments))
         self.conn.commit()
 
@@ -54,7 +54,7 @@ class produceDatabaseFuncts(object):
     # Returns: None
     
     def changeName(self, name, name2):
-        pass
+        pass # Have to delete and then re-create
 
     #=====<changeDays>=====
     # Changes the days before expiry given a produce name
