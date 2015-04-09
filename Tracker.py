@@ -65,6 +65,7 @@ def main():
                     cmd = raw_input("# Days before expiring: ")
                     if(cmd == "cancel" or cmd == "c"): break
                     expiry = int(cmd)
+                    if(expiry < 0): raise ValueError
                     break
                 except ValueError:
                     print "Not an int; \"cancel\" to cancel"
@@ -90,12 +91,15 @@ def main():
             print "and 3 to change the comment."
             cmd = raw_input( "Enter 4 to quit.\n ==> ")
 
-            #######FINISH IMPLEMENTING THESE#######
             if (cmd == "4"):
                 continue
 
             if (cmd == "1"):
-                pass###      # Delete and and recreate.########
+                newname = raw_input(" New name: ")
+                if(newname == ""):
+                    print "Not a valid name."
+                    continue
+                prodb.changeName(name, newname)
 
             if (cmd == "2"): # Change days before expiry
                 while(True):
@@ -103,6 +107,7 @@ def main():
                         days = raw_input(" Number of days: ")
                         if(cmd == "cancel" or cmd == "c"): break
                         expiry = int(cmd)
+                        if(expiry < 0): raise ValueError
                         break
                     except ValueError:
                         print "Not an int; \"cancel\" to cancel"
@@ -117,6 +122,7 @@ def main():
         elif (cmd == "remove produce" or cmd == "rp"):
             name = raw_input(" ?=> ")
             prodb.removeProduce(name)
+            print name,"removed."
 
         # In Fridge command: Checks if a given food is in the fridge
         elif (cmd == "in fridge" or cmd == "if"):

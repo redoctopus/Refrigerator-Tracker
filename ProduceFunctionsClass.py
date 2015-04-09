@@ -45,30 +45,45 @@ class produceDatabaseFuncts(object):
     def newProduce(self, name, expiry, comments):
         # probably want to make some checks before arbitrarily inserting
         # into the database.
-        self.cursor.execute("INSERT OR REPLACE INTO produce_info VALUES (?,?,?)",
+        self.cursor.execute(
+                "INSERT OR REPLACE INTO produce_info VALUES (?,?,?)",
                 (name, expiry, comments))
         self.conn.commit()
 
     #=====<changeName>=====
-    # Changes the name of the given produce into another given string
+    # Changes the name of the given produce into another given string.
+    # Note: Have to delete and then re-create. This is sub-optimal...
     # Returns: None
     
     def changeName(self, name, name2):
-        pass # Have to delete and then re-create
+        self.cursor.execute("SELECT * FROM produce_info WHERE name=(?)",
+                (name,))
+        result = self.cursor.fetchone()
+        expiry = result[1]
+        comments = result[2]
+        self.cursor.execute(
+                "INSERT OR REPLACE produce_info VALUES (?,?,?)", # Check this
+                (name2, expiry, comments))
 
     #=====<changeDays>=====
     # Changes the days before expiry given a produce name
     # Returns: None
 
     def changeDays(self, name, days):
-        print name, days
+        self.cursor.execute(
+            "UPDATE produce_info SET expiry=(?) WHERE name=(?)",
+            (days, name))
+        self.conn.commit()
 
     #=====<changeComment>=====
     # Changes the comments of some given produce
     # Returns: None
 
     def changeComment(self, name, comment):
-        pass
+        self.cursor.execute(
+            "UPDATE produce_info SET comments=(?) WHERE name=(?)",
+            (comment, name))
+        self.conn.commit()
 
     #=====<removeProduce>=====
     # Removes the produce and its information from the info database
@@ -79,8 +94,9 @@ class produceDatabaseFuncts(object):
             print "Are you sure you want to delete", name, "?"
             confirm = raw_input(" ?=> ")
             if (confirm == "yes" or confirm == "y"):
-                self.cursor.execute("DELETE FROM produce_info WHERE name=(?)",
-                        (name,))
+                self.cursor.execute(
+                    "DELETE FROM produce_info WHERE name=(?)",
+                    (name,))
                 self.conn.commit()
 
     #=====<inFridge>=====
