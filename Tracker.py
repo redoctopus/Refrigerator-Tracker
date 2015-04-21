@@ -3,7 +3,7 @@
   |         Tracker         |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 04/08/15 |
+  | Last modified: 04/21/15 |
   +========================='''
 
 import ProduceFunctionsClass
@@ -34,7 +34,7 @@ def main():
                   " in order of date of expiry.")
             print ("- in fridge / if: Prompts for a lookup of an item in"
                   " the current fridge stock.")
-            print ("- list / lst : Prompts for a number n, then returns the"
+            print ("- list / ls : Prompts for a number n, then returns the"
                   " first n items that will spoil in the fridge.")
             print ("- lookup / l : Prompts for a lookup of an item in the"
                   " general produce database.")
@@ -91,10 +91,10 @@ def main():
             print "and 3 to change the comment."
             cmd = raw_input( "Enter 4 to quit.\n ==> ")
 
-            if (cmd == "4"):
+            if (cmd == "4"): # Quits
                 continue
 
-            if (cmd == "1"):
+            if (cmd == "1"): # Changes name
                 newname = raw_input(" New name: ")
                 if(newname == ""):
                     print "Not a valid name."
@@ -124,6 +124,10 @@ def main():
             prodb.removeProduce(name)
             print name,"removed."
 
+        #|===========================================|
+        #|=======<Fridge Functions Start Here>=======|
+        #|===========================================|
+
         # In Fridge command: Checks if a given food is in the fridge
         elif (cmd == "in fridge" or cmd == "if"):
             name = raw_input(" ?=> ")
@@ -151,7 +155,7 @@ def main():
             pass
 
         # List command: Gives a list of the first n items that will spoil
-        elif (cmd == "list" or cmd == "lst"):
+        elif (cmd == "list" or cmd == "ls"):
             pass
         
         cmd = raw_input('==> ')

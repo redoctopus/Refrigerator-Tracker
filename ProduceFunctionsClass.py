@@ -3,7 +3,7 @@
   | Produce Functions Class |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 04/08/15 |
+  | Last modified: 04/21/15 |
   +========================='''
 
 ''' This file contains the functions that interact with the database.
@@ -61,9 +61,16 @@ class produceDatabaseFuncts(object):
         result = self.cursor.fetchone()
         expiry = result[1]
         comments = result[2]
-        self.cursor.execute(
-                "INSERT OR REPLACE produce_info VALUES (?,?,?)", # Check this
-                (name2, expiry, comments))
+
+        if(self.produceExists(name2)):
+            confirm = raw_input("Already exists, replace? ")
+            if(confirm == "no" or confirm == "n"):
+                print "Not replacing."
+                return
+        self.newProduce(name2, expiry, comments)
+        print "Deleting the original..."
+        self.removeProduce(name)
+        print "Done!"
 
     #=====<changeDays>=====
     # Changes the days before expiry given a produce name
