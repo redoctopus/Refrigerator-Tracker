@@ -3,7 +3,7 @@
   | Produce Functions Class |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 04/21/15 |
+  | Last modified: 04/22/15 |
   +========================='''
 
 ''' This file contains the functions that interact with the database.
@@ -114,7 +114,16 @@ class produceDatabaseFuncts(object):
         self.cursor.execute("SELECT * FROM fridge WHERE name=(?)",
                 (name,))
         result = self.cursor.fetchone()
-        if (not(result==None)): ######Probably want more here
+        if (not(result==None)):
+            print "\n============"
+            print result[0] #Don't need, index.
+            print result[1] #name
+            print result[2] #insertDate
+            print result[3] #expDate
+            print result[4] #Need to check if no comment--empty string?
+            print "------------"
+           # print "Typically expires in", result[1], "days"
+           # print "Other comments:\n", result[2], "\n============\n"
             return True
 
         else:
@@ -133,13 +142,15 @@ class produceDatabaseFuncts(object):
     # Returns: None
 
     def removeFromFridge(self, name):
-        pass
+        ############Need more checks here. ########
+        self.cursor.execute("DELETE FROM fridge WHERE name=(?)", (name,))
+        print "removed", name
 
-    #=====<allFridgeItems>=====
+    #=====<listFridge>=====
     # Retrieves all items that are in the fridge
     # Returns: Array with: String (name) -> Date
 
-    def allFridgeItems(self):
+    def listFridge(self):
         pass
 
     #=====<quickestSpoil>=====

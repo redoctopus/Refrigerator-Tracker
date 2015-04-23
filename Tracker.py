@@ -3,7 +3,7 @@
   |         Tracker         |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 04/21/15 |
+  | Last modified: 04/22/15 |
   +========================='''
 
 import ProduceFunctionsClass
@@ -30,12 +30,12 @@ def main():
                   " if it's not already in the db, asks for additional info.")
             print ("- edit produce / ep : Prompts for some produce to edit"
                   " its information in produce_info")
-            print ("- fridge / f : Prints out what's in the fridge"
-                  " in order of date of expiry.")
+            #print ("- fridge / f : Prints out what's in the fridge"
+            #      " in order of date of expiry.")
             print ("- in fridge / if: Prompts for a lookup of an item in"
                   " the current fridge stock.")
-            print ("- list / ls : Prompts for a number n, then returns the"
-                  " first n items that will spoil in the fridge.")
+            print ("- list / ls : Returns the items in the fridge, in order of"
+                  " date of expiry.")
             print ("- lookup / l : Prompts for a lookup of an item in the"
                   " general produce database.")
             print ("- new produce / np : Prompts for information for a new"
@@ -150,13 +150,12 @@ def main():
         elif (cmd == "remove" or cmd == "r"):
             pass
 
-        # Fridge command: <fill in later>
-        elif (cmd == "fridge" or cmd == "f"):
-            pass
-
         # List command: Gives a list of the first n items that will spoil
         elif (cmd == "list" or cmd == "ls"):
-            pass
+            items = prodb.listFridge() # Need to figure out return type...
+                                       # List of strings w/ relevant info?
+            #for x in items:
+            #    print x
         
         cmd = raw_input('==> ')
     
