@@ -1,0 +1,4 @@
+To-Do List:
+
+- Better way to deal with duplicate fridge entries (add command)
+- Get data of specified produce to add it to fridge

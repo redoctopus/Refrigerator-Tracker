@@ -7,6 +7,8 @@
   +========================='''
 
 import ProduceFunctionsClass
+import time
+import datetime
 
 #Make things lowercase!
 
@@ -18,6 +20,9 @@ def main():
     print "+======================+"
     print "\nRefrigerator Tracker! Enter \"quit\" (or just \"q\") to quit."
     print "For a list of commands and what they do, enter \"help\". \n"
+
+    # Datetime
+    print "Date is: ", datetime.date.today().strftime("%y %m %d")
     
     cmd = raw_input('==> ')
     
@@ -46,10 +51,12 @@ def main():
             print ("- quit / q : Quit.")
 
         # Lookup command: Find a specific food in general database
+        # Keys: lookup, l
         elif (cmd == "lookup" or cmd == "l"):
             prodb.produceExists(raw_input(" ?=> "))
         
         # New Produce command: Enters a new food into general database
+        # Keys: new produce, np
         elif (cmd == "new produce" or cmd == "np"):
             # Produce name
             name = raw_input("Name of produce: ")
@@ -57,7 +64,7 @@ def main():
             print "Checking if this already exists..."
             if(prodb.produceExists(name)):
                 cmd = raw_input("Are you sure you want to replace? ")
-                if(cmd !="yes" and cmd != "y"): continue
+                if(cmd != "yes" and cmd != "y"): continue
 
             # Attempt to get days before expiry
             while (True): # This feels a bit clunky. Possibly refactor?
@@ -82,6 +89,7 @@ def main():
             print "Success! Inserted", name, "into the database."
         
         # Edit Produce command: Changes the info for some produce
+        # Keys: edit produce, ep
         elif (cmd == "edit produce" or cmd == "ep"):
             name = raw_input(" ?=> ")
             if (not prodb.produceExists(name)):
@@ -119,38 +127,71 @@ def main():
                 prodb.changeComment(name, comment)
 
         # Remove Produce command : Deletes the produce from the info db
+        # Keys: remove produce, rp
         elif (cmd == "remove produce" or cmd == "rp"):
             name = raw_input(" ?=> ")
             prodb.removeProduce(name)
-            print name,"removed."
+            print name,"removed from database."
 
         #|===========================================|
         #|=======<Fridge Functions Start Here>=======|
         #|===========================================|
 
         # In Fridge command: Checks if a given food is in the fridge
+        # Keys: in fridge, if
         elif (cmd == "in fridge" or cmd == "if"):
             name = raw_input(" ?=> ")
             prodb.inFridge(name)
 
-        # Add command: Adds produce to the fridge. (Should prompt
-            #if new produce, remember to do this!)
+        # Add command: Adds produce to the fridge.
+        # add, a
         elif (cmd == "add" or cmd == "a"):
             # Produce name
             name = raw_input("Name of produce: ")
-            if (prodb.inFridge(name)):
-                pass #query for##########
-            # Otherwise, ask for data, insert into both
+            if (prodb.inFridge(name)):          # It's already in the fridge
+                print "That's already in the fridge. Do you want to replace?"
+                if(cmd != "yes" and cmd != "y"): continue
+
+            elif not prodb.produceExists(name): # Needs to be added to the database
+                print name,"isn't in the database yet."
+
+                while (True):
+                    try:
+                        cmd = raw_input("# Days before expiring: ")
+                        if(cmd == "cancel" or cmd == "c"): break
+                        expiry = int(cmd)
+                        if(expiry < 0): raise ValueError
+                        break
+                    except ValueError:
+                        print "Not an int; \"cancel\" to cancel"
+                        continue
+                if (cmd == "cancel" or cmd == "c"): continue
+
+                comments = raw_input("Additional comments about produce: ")
+
+                if(name == "" or expiry == 0):
+                    print "Invalid produce input"
+                    continue
+
+                prodb.newProduce(name, expiry, comments)
+                print "Inserted", name, "into the database."
+
+            print "Inserting", name, "into the fridge..."
             
+            # Get data of the specified produce from database ###############
+
             print "Success! Inserted", name, "into the fridge."
         
 
         # Remove command: Removes some item from the fridge.
-            #Check if exists first.
+        # Keys: remove, r
         elif (cmd == "remove" or cmd == "r"):
-            pass
+            name = raw_input(" ?=> ")
+            prodb.removeFromFridge(name)
+            print name,"removed from fridge."
 
         # List command: Gives a list of the first n items that will spoil
+        # Keys: list, ls
         elif (cmd == "list" or cmd == "ls"):
             items = prodb.listFridge() # Need to figure out return type...
                                        # List of strings w/ relevant info?
