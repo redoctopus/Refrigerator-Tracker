@@ -3,7 +3,7 @@
   | Produce Functions Class |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 04/22/15 |
+  | Last modified: 12/22/15 |
   +========================='''
 
 ''' This file contains the functions that interact with the database.
@@ -153,6 +153,8 @@ class produceDatabaseFuncts(object):
     # Returns: None
 
     def addToFridge(self, prodList):
+        unadded = []
+
         for name in prodList:
             self.cursor.execute(
                 "SELECT * FROM produce_info WHERE name=(?)",
@@ -160,9 +162,12 @@ class produceDatabaseFuncts(object):
             result = self.cursor.fetchone()
             if (result == None):
                 print name, "isn't in the database."
-                add = raw_input("Would you like to add it to the database? (y/n)")
+                add = raw_input("Would you like to add it to the database? (y/n) ")
                 if (add == "y" or add == "yes"):
-                    pass ##########################
+                    self.newProduce(name)
+                else:
+                    print name, "will not be added."
+                    unadded.append(name)
 
     #=====<removeFromFridge>=====
     # Removes some produce from the fridge

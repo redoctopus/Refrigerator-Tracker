@@ -3,7 +3,7 @@
   |         Tracker         |
   |           ---           |
   |      Jocelyn Huang      |
-  | Last modified: 04/22/15 |
+  | Last modified: 12/22/15 |
   +========================='''
 
 import ProduceFunctionsClass
@@ -69,7 +69,7 @@ def main():
                 if(cmd != "yes" and cmd != "y"): continue
 
             prodb.newProduce(name)
-            
+
             print "Success! Inserted", name, "into the database."
         
         # Edit Produce command: Changes the info for some produce
