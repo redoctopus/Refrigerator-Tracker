@@ -169,6 +169,7 @@ class produceDatabaseFuncts(object):
                     print name, "will not be added."
                     unadded.append(name)
 
+        # Prints out unadded items
         print "\nThe following items were not added:"
         for x in range(len(unadded)):
             print x+1, ":", unadded[x]
