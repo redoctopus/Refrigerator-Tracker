@@ -68,26 +68,8 @@ def main():
                 cmd = raw_input("Are you sure you want to replace? ")
                 if(cmd != "yes" and cmd != "y"): continue
 
-            # Attempt to get days before expiry
-            while (True): # This feels a bit clunky. Possibly refactor?
-                try:
-                    cmd = raw_input("# Days before expiring: ")
-                    if(cmd == "cancel" or cmd == "c"): break
-                    expiry = int(cmd)
-                    if(expiry < 0): raise ValueError
-                    break
-                except ValueError:
-                    print "Not an int; \"cancel\" to cancel"
-                    continue
-            if (cmd == "cancel" or cmd == "c"): continue
-            # Comments if applicable
-            comments = raw_input("Additional comments: ")
-
-            if(name == "" or expiry == 0):
-                print "Invalid produce input"
-                continue
+            prodb.newProduce(name)
             
-            prodb.newProduce(name, expiry, comments)
             print "Success! Inserted", name, "into the database."
         
         # Edit Produce command: Changes the info for some produce

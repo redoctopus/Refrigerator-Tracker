@@ -42,9 +42,29 @@ class produceDatabaseFuncts(object):
     # Inserts new kinds of produce into produce_info
     # Returns: None
 
-    def newProduce(self, name, expiry, comments):
+    def newProduce(self, name):
         # probably want to make some checks before arbitrarily inserting
         # into the database.
+
+        # Attempt to get days before expiry
+        while (True): # This feels a bit clunky. Possibly refactor?
+            try:
+                cmd = raw_input("# Days before expiring: ")
+                if(cmd == "cancel" or cmd == "c"): break
+                expiry = int(cmd)
+                if(expiry < 0): raise ValueError
+                break
+            except ValueError:
+                print "Not an int; \"cancel\" to cancel"
+                continue
+        if (cmd == "cancel" or cmd == "c"): return
+        # Comments if applicable
+        comments = raw_input("Additional comments: ")
+
+        if(name == "" or expiry == 0):
+            print "Invalid produce input"
+            return
+
         self.cursor.execute(
                 "INSERT OR REPLACE INTO produce_info VALUES (?,?,?)",
                 (name, expiry, comments))
