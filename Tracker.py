@@ -22,7 +22,7 @@ def main():
     print "For a list of commands and what they do, enter \"help\". \n"
 
     # Datetime
-    print "Date is: ", datetime.date.today().strftime("%y %m %d")
+    print "Date is: ", datetime.date.today().strftime("%m/%d/%y")
     
     cmd = raw_input('==> ')
     
@@ -31,8 +31,10 @@ def main():
     while (cmd != "quit" and cmd != "q"):
         # Help command
         if (cmd == "help" or cmd == "h"):
-            print ("- add / a : Prompts for an item to add to the fridge."
-                  " if it's not already in the db, asks for additional info.")
+            print ("- add / a : Prompts for multiple items to add to the"
+                   "fridge.")
+            print ("- add one / ao : Prompts for a single item to add to the"
+                  "fridge. If it's not already in the db, asks for more info.")
             print ("- edit produce / ep : Prompts for some produce to edit"
                   " its information in produce_info")
             #print ("- fridge / f : Prints out what's in the fridge"
@@ -145,8 +147,8 @@ def main():
 
         # Add command: Adds produce to the fridge.
         # add, a
-        elif (cmd == "add" or cmd == "a"):
-            # Produce name
+        elif (cmd == "add one" or cmd == "ao"):
+            # Produce names
             name = raw_input("Name of produce: ")
             if (prodb.inFridge(name)):          # It's already in the fridge
                 print "That's already in the fridge. Do you want to replace?"
@@ -182,6 +184,9 @@ def main():
 
             print "Success! Inserted", name, "into the fridge."
         
+        elif (cmd == "add" or cmd == "a"): ##################################
+            testlist = ["test234"]
+            prodb.addToFridge(testlist)
 
         # Remove command: Removes some item from the fridge.
         # Keys: remove, r

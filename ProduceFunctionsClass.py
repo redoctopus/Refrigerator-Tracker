@@ -116,14 +116,12 @@ class produceDatabaseFuncts(object):
         result = self.cursor.fetchone()
         if (not(result==None)):
             print "\n============"
-            print result[0] #Don't need, index.
+            print "Index:",result[0] #Don't need, index.
             print result[1] #name
             print result[2] #insertDate
             print result[3] #expDate
             print result[4] #Need to check if no comment--empty string?
             print "------------"
-           # print "Typically expires in", result[1], "days"
-           # print "Other comments:\n", result[2], "\n============\n"
             return True
 
         else:
@@ -131,11 +129,20 @@ class produceDatabaseFuncts(object):
             return False
 
     #=====<addToFridge>=====
-    # Adds some produce into the fridge
+    # Adds some produce into the fridge from a list of produce names
     # Returns: None
 
-    def addToFridge(self, name):
-        pass
+    def addToFridge(self, prodList):
+        for name in prodList:
+            self.cursor.execute(
+                "SELECT * FROM produce_info WHERE name=(?)",
+                (name,))
+            result = self.cursor.fetchone()
+            if (result == None):
+                print name, "isn't in the database."
+                add = raw_input("Would you like to add it to the database? (y/n)")
+                if (add == "y" or add == "yes"):
+                    pass ##########################
 
     #=====<removeFromFridge>=====
     # Removes some produce from the fridge
