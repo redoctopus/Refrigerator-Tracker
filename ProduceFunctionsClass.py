@@ -169,6 +169,10 @@ class produceDatabaseFuncts(object):
                     print name, "will not be added."
                     unadded.append(name)
 
+        print "\nThe following items were not added:"
+        for x in range(len(unadded)):
+            print x+1, ":", unadded[x]
+
     #=====<removeFromFridge>=====
     # Removes some produce from the fridge
     # Returns: None
