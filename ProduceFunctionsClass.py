@@ -178,13 +178,13 @@ class produceDatabaseFuncts(object):
                             "SELECT * FROM produce_info WHERE name=(?)",
                             (name,))
                         result = self.cursor.fetchone()
-                        
+
                 else:
                     print name, "will not be added to the database or the fridge."
                     unadded.append(name)
                     continue
 
-            # Add produce to the fridge
+            #TODO: Add produce to the fridge
 
             print name, "has been added to the fridge." # and will expire in ??
 

@@ -1,4 +1,8 @@
 To-Do List:
 
+- Move database-related operations to ProduceFunctionsClass.py
+	* edit produce
+	* add one (needs to be integrated into add in general once that is set up)
+- Reformat help to something more readable
 - Better way to deal with duplicate fridge entries (add command)
 - Get data of specified produce to add it to fridge
