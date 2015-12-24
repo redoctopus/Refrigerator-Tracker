@@ -40,7 +40,7 @@ class produceDatabaseFuncts(object):
 
     #=====<newProduce>=====
     # Inserts new kinds of produce into produce_info
-    # Returns: None
+    # Returns: Boolean, true if insertion was successful
 
     def newProduce(self, name):
         # probably want to make some checks before arbitrarily inserting
@@ -57,18 +57,23 @@ class produceDatabaseFuncts(object):
             except ValueError:
                 print "Not an int; \"cancel\" to cancel"
                 continue
-        if (cmd == "cancel" or cmd == "c"): return
+        if (cmd == "cancel" or cmd == "c"):
+            print "Canceling."
+            return False
+
         # Comments if applicable
         comments = raw_input("Additional comments: ")
 
         if(name == "" or expiry == 0):
             print "Invalid produce input"
-            return
+            return False
 
         self.cursor.execute(
                 "INSERT OR REPLACE INTO produce_info VALUES (?,?,?)",
                 (name, expiry, comments))
         self.conn.commit()
+
+        return True
 
     #=====<changeName>=====
     # Changes the name of the given produce into another given string.
@@ -160,14 +165,28 @@ class produceDatabaseFuncts(object):
                 "SELECT * FROM produce_info WHERE name=(?)",
                 (name,))
             result = self.cursor.fetchone()
+
+            # Add unidentified produce to the database
             if (result == None):
                 print name, "isn't in the database."
                 add = raw_input("Would you like to add it to the database? (y/n) ")
+
                 if (add == "y" or add == "yes"):
-                    self.newProduce(name)
+                    if (self.newProduce(name)):
+                        print name, "has been added to the database."
+                        self.cursor.execute(
+                            "SELECT * FROM produce_info WHERE name=(?)",
+                            (name,))
+                        result = self.cursor.fetchone()
+                        
                 else:
-                    print name, "will not be added."
+                    print name, "will not be added to the database or the fridge."
                     unadded.append(name)
+                    continue
+
+            # Add produce to the fridge
+
+            print name, "has been added to the fridge." # and will expire in ??
 
         # Prints out unadded items
         print "\nThe following items were not added:"
@@ -179,7 +198,7 @@ class produceDatabaseFuncts(object):
     # Returns: None
 
     def removeFromFridge(self, name):
-        ############Need more checks here. ########
+        # TODO: More checks here.
         self.cursor.execute("DELETE FROM fridge WHERE name=(?)", (name,))
         print "removed", name
 

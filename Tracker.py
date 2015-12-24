@@ -68,9 +68,9 @@ def main():
                 cmd = raw_input("Are you sure you want to replace? ")
                 if(cmd != "yes" and cmd != "y"): continue
 
-            prodb.newProduce(name)
-
-            print "Success! Inserted", name, "into the database."
+            if(prodb.newProduce(name)): 
+                print "Success! Inserted", name, "into the database."
+            else: print "Didn't insert", name, "into the database."
         
         # Edit Produce command: Changes the info for some produce
         # Keys: edit produce, ep
